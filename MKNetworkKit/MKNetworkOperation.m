@@ -906,7 +906,15 @@
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
   
   if ([challenge previousFailureCount] == 0) {
-    
+  
+      if(self.certificateHandler){
+          if(self.certificateHandler(challenge, connection)){
+              return;
+          }else{
+              //In case certificateHandler returns false, proceed
+          }
+      }
+      
     if (((challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodDefault) ||
          (challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodHTTPBasic) ||
          (challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodHTTPDigest) ||
@@ -963,10 +971,9 @@
         }
       }
       else {
-        
         // invalid or revoked certificate
         [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
-        //[challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];
+        //[challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];        
       }
     }
     else if (self.authHandler) {

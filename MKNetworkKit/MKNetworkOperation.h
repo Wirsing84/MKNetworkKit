@@ -45,6 +45,8 @@ typedef void (^MKNKErrorBlock)(NSError* error);
 
 typedef void (^MKNKAuthBlock)(NSURLAuthenticationChallenge* challenge);
 
+typedef BOOL (^MKNKCertificateBlock)(NSURLAuthenticationChallenge* challenge, NSURLConnection *connection);
+
 typedef NSString* (^MKNKEncodingBlock) (NSDictionary* postDataDict);
 
 typedef enum {
@@ -258,6 +260,16 @@ typedef enum {
  *  and process the NSURLAuthenticationChallenge
  */
 @property (nonatomic, copy) MKNKAuthBlock authHandler;
+
+/*!
+ *  @abstract Custom certificate handler
+ *  @property certificateHandler
+ *
+ *  @discussion
+ *	If you would like to validate a certificate on your own, add a block method here and process the
+ *  NSURLAuthenticationChallenge and NSURLConnection
+ */
+@property (nonatomic, copy) MKNKCertificateBlock certificateHandler;
 
 /*!
  *  @abstract Handler that you implement to monitor reachability changes
