@@ -908,11 +908,8 @@
   if ([challenge previousFailureCount] == 0) {
   
       if(self.certificateHandler){
-          if(self.certificateHandler(challenge, connection)){
-              return;
-          }else{
-              //In case certificateHandler returns false, proceed
-          }
+          self.certificateHandler(challenge, connection);
+          return;
       }
       
     if (((challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodDefault) ||

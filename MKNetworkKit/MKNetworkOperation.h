@@ -45,7 +45,7 @@ typedef void (^MKNKErrorBlock)(NSError* error);
 
 typedef void (^MKNKAuthBlock)(NSURLAuthenticationChallenge* challenge);
 
-typedef BOOL (^MKNKCertificateBlock)(NSURLAuthenticationChallenge* challenge, NSURLConnection *connection);
+typedef void (^MKNKCertificateBlock)(NSURLAuthenticationChallenge* challenge, NSURLConnection *connection);
 
 typedef NSString* (^MKNKEncodingBlock) (NSDictionary* postDataDict);
 
